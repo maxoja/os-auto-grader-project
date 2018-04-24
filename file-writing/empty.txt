@@ -1,4 +1,12 @@
 os-auto-grader-project
 
+The code exist in fileWriter.sh
 
-Fuk yeh
+There are 2 function writeTestResult and clearTestResult
+
+writeTestResult : append a score to the text file of such lab name
+
+clearResultFile : clear the file of such lab
+
+
+Enjoy 😂😂🤘🏻🤘🏻
