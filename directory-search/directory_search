@@ -1,24 +1,29 @@
 #!/bin/sh
 
-lab_name=${1:0:4}
-cd Labs
+lab_name=$1 				#question name (LabXY) = 1st parameter
+lab_num=${1:0:4} 			#slice LabXY to LabX (first layer directory name)
+answer=$2 				#answer = 2nd parameter
+cd Labs 				#goto Labs folder
 
-if [ -e $lab_name ]
+if [ -e $lab_num ] 			#if folder LabX exist
 then
-	cd $lab_name
+	cd $lab_num 			#goto that folder
+	
 else
-	echo "$lab_name does not exist"
-	exit 1
-fi
+	echo "$lab_num does not exist"	#print error message
+	exit 1				#terminates program
+fi 					
 
-set `ls`
-for item in $*
+set `ls`				#set positional parameters($1, $2, ..., $n) to name of files and folders in current directory
+					#in this case, folder of students.
+					
+for item in $*				#for item in those file/folder names
 do
-	if [ -d $item ]
+	if [ -d $item ]			#if the name is directory
 	then
-		cd $item
+		cd $item		#go in
 		#do some shit
-		cd ..
-	fi
+		cd ..			#go out
+	fi	
 done
 	
