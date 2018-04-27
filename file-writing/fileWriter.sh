@@ -1,13 +1,11 @@
 #! /bin/bash
 
-writeTestResult ()
-{
+writeTestResult (){
 	filename="result$1.txt" 
 	echo "$2;$3" >> $filename
 }
 
-clearResultFile()
-{
+clearResultFile(){
 	filename="result$1.txt"
 	> $filename
 }
