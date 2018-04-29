@@ -26,7 +26,9 @@ fi
 
 #set positional parameters($1, $2, ..., $n) to name of files and folders in current directory
 #in this case, folder of students.
-set `ls`                
+set `ls`   
+
+rm "result$lab_name.txt"             
 
 #for item in those file/folder names
 for item in $*                
@@ -47,7 +49,9 @@ do
               		echo $answer > teacher_result.txt
               
               		#evaluate result
-              		if [ "$(cat student_result.txt)" == "$(cat teacher_result.txt)" ];
+			student="$(cat student_result.txt)"
+			teacher="$(cat teacher_result.txt)"
+              		if [ "$student" = "$teacher" ];
               		then
                     		#answer correct
                     		echo "correct answer"
