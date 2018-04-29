@@ -1,5 +1,2 @@
 resultLab11.txt;0
 resultLab11.txt;0
-resultLab11.txt;0
-resultLab11.txt;0
-resultLab11.txt;0
