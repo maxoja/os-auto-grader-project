@@ -64,35 +64,44 @@ set `ls`
 
 for student_folder in $* 		# for student_folder in those file/folder names
 do
+	
 	if [ -d $student_folder ]	# if the name is directory
 	then
-		cd $student_folder						# go in
-		if gcc $lab_name.c -o "temp" | grep -v "";			# if compile success
-		then 
-			echo "compile ok"												# print compile ok
+		if [ -e $lab_name.c ]
+		then
+			cd $student_folder						# go in
+			if gcc $lab_name.c -o "temp" 2>&1 | grep -v "";			# if compile success
+			then 
+				echo "compile ok"					#print compile ok
 
-			./temp > "student_result.txt"									#create temp file store student result
-			echo $correct_answer > "teacher_result.txt"		#create temp file store teacher result
+				./temp > "student_result.txt"				#create temp file store student result
+				echo $correct_answer > "teacher_result.txt"		#create temp file store teacher result
+				teacher="$(cat teacher_result.txt)"
+				student="$(cat student_result.txt)"
+				if [ $teacher = $student ];	#check if same output as expected
+				then #answer correct then set score=3
+						echo "correct answer"
+						score=3
+				else #answer wrong then set score=3
+						echo "wrong answer"
+						score=2
+				fi
 
-			if [ "$(cat student_result.txt)" = "$(cat teacher_result.txt)" ];	#check if same output as expected
-			then #answer correct then set score=3
-					echo "correct answer"
-					score=3
-			else #answer wrong then set score=3
-					echo "wrong answer"
-					score=2
+				rm "student_result.txt"		# clear temp files
+				rm "teacher_result.txt"
+				rm "temp"
+			else #compile error and score=1
+				echo "compile failed"
+				score=1
 			fi
 
-			rm "student_result.txt"		# clear temp files
-			rm "teacher_result.txt"
-			rm "temp"
-		else #compile error and score=1
-			echo "compile failed"
-			score=1
-		fi
+			score=0
 
+		
+		fi
 		cd ../../..
 		echo "$student_folder;$score" >> "result$lab_name.txt"	#push result file
-		cd Labs/$lab_folder	#go in to Labs/LabX/
+		cd Home/Labs/$lab_folder	#go in to Labs/LabX/
+
 	fi
 done
