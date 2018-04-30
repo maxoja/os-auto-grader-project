@@ -1,26 +1,48 @@
 #!/bin/sh
 
-#question name (LabXY) = 1st parameter
+## GET INPUT ----------------------------------
+
+# question name (LabXY) = 1st parameter
 lab_name=$1
 
-#slice LabXY to LabX (first layer directory name)
-lab_folder=`echo $lab_name | cut -b 1-4`
-
-#correct_answer = 2nd parameter
+# correct_answer = 2nd parameter
 correct_answer=$2
 
-#goto Labs folder
-cd Labs
 
-#if folder LabX exist
-if [ -e $lab_folder ]
+## PREPARE VARIABLES ------------------------
+
+# slice LabXY to LabX (first layer directory name)
+lab_folder=`echo $lab_name | cut -b 1-4`
+
+# generate result file naeme
+result_file_name="result$lab_name.txt"
+
+## CLEAR OLD FILE ----------------------------- 
+if [ -e $result_file_name  ]
+then
+	rm $result_file_name
+fi
+
+## ENTER Labs/ IF EXIST --------------------------------
+if [ -e "Labs" ] # directory Labs/ exists
+then 
+	#goto that folder
+	cd "Labs"
+else
+	#print error message
+	echo "Labs directory does not exist"
+	#terminates program
+	exit 1
+fi
+
+## ENTER Labs/LabX IF EXIST ---------------------------
+if [ -e $lab_folder ] #if directory Labs/LabX exists
 then
 	#goto that folder
 	cd $lab_folder
 else
 	#print error message
-	echo "$lab_folder
- does not exist"
+	echo "$lab_folder does not exist"
 	#terminates program
 	exit 1
 fi
@@ -28,10 +50,6 @@ fi
 #set positional parameters($1, $2, ..., $n) to name of files and folders in current directory
 #in this case, folder of students.
 set `ls`   
-
-#remove former result file
-rm "result$lab_name.txt"             
-
 
 #for item in those file/folder names
 for item in $*
