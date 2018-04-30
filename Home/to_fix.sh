@@ -4,22 +4,23 @@
 lab_name=$1
 
 #slice LabXY to LabX (first layer directory name)
-lab_num=`echo $lab_name | cut -b 1-4`
+lab_folder=`echo $lab_name | cut -b 1-4`
 
-#answer = 2nd parameter
-answer=$2
+#correct_answer = 2nd parameter
+correct_answer=$2
 
 #goto Labs folder
 cd Labs
 
 #if folder LabX exist
-if [ -e $lab_num ]
+if [ -e $lab_folder ]
 then
 	#goto that folder
-	cd $lab_num
+	cd $lab_folder
 else
 	#print error message
-	echo "$lab_num does not exist"
+	echo "$lab_folder
+ does not exist"
 	#terminates program
 	exit 1
 fi
@@ -48,12 +49,12 @@ do
               		#generate temp files
 
               		./temp > student_result.txt
-              		echo $answer > teacher_result.txt
+              		echo $correct_answer > teacher_result.txt
 
               		#evaluate result
-			student="$(cat student_result.txt)"
-			teacher="$(cat teacher_result.txt)"
-              		if [ "$student" = "$teacher" ];
+			student_answer="$(cat student_result.txt)"
+			teacher_answer="$(cat teacher_result.txt)"
+              		if [ "$student_answer" = "$teacher_answer" ];
               		then
                     		#answer correct
                     		echo "correct answer"
