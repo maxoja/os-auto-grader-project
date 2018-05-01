@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# ------------------------------- TAWAN -----------------------------------
+
 #question name (LabXY) = 1st parameter
 lab_name=$1
 
 #slice LabXY to LabX (first layer directory name)
-lab_num=`echo $lab_name | cut -b 1-4`
+len=${#lab_name}
+len=$(echo `expr $len - 1`)
+lab_num=`echo $lab_name | cut -c 1-$len`
 
 #answer = 2nd parameter
 answer=$2
@@ -14,6 +18,8 @@ if [ -e "result$lab_name.txt" ]
 then
 	rm "result$lab_name.txt"             
 fi
+
+# --------------------------------- GUY -----------------------------------
 
 #goto Labs folder
 cd Labs
@@ -30,14 +36,16 @@ else
 	exit 1
 fi
 
+
+# ------------------------------- MOST ----------------------------------
+
 #set positional parameters($1, $2, ..., $n) to name of files and folders in current directory
 #in this case, folder of students.
-set `ls`   
-
-
+set `ls`
 
 #for item in those file/folder names
-for item in $*
+for item in $*	
+# -------------------------------- PUNN -----------------------------------
 do
 	#if the name is directory
 	if [ -d $item ]
@@ -56,9 +64,11 @@ do
 		      		./temp > student_result.txt
 		      		echo $answer > teacher_result.txt
 
+					# --------------------------- DAMIAN ----------------------------------
+
 		      		#evaluate result
-				student="$(cat student_result.txt)"
-				teacher="$(cat teacher_result.txt)"
+					student="$(cat student_result.txt)"
+					teacher="$(cat teacher_result.txt)"
 		      		if [ "$student" = "$teacher" ];
 		      		then
 		            		#answer correct
@@ -88,3 +98,6 @@ do
 		
        	fi
 done
+
+
+# -------------------------------------------------------------------------------
