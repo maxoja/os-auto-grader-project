@@ -77,16 +77,14 @@ do
 		     		score=1
 		 	fi		
 		else
+			#C file does not exist
+			echo "missing $lab_name.c for $item"
         		score=0
 		fi
 		cd ../../..
 		#file result to file
-		echo "$item;$score"
 	       	echo "$item;$score" >> "result$lab_name.txt"
 		cd Labs/$lab_num
 		
        	fi
-
-        
-
 done
