@@ -43,15 +43,20 @@ fi
 #in this case, folder of students.
 set `ls`
 
+#print separator line
+echo "----------------------------------------"
 #for item in those file/folder names
 for item in $*	
 # -------------------------------- PUNN -----------------------------------
 do
 	#if the name is directory
-	if [ -d $item ]
+	if [ -d $student_id ]
     	then
+		#print student id
+		echo $student_id
+
 		#go in
-        	cd $item
+        	cd $student_id
 		if [ -e $lab_name.c ]
 		then
 			if gcc $lab_name.c -o temp;
@@ -80,7 +85,11 @@ do
 		            		score=2
 		      		fi
 
-			#clear temp files
+				#clear temp files
+				rm student_result.txt
+				rm teacher_result.txt
+				rm temp
+
 			else
 		     		#compile error
 		     		echo "compile failed"
@@ -88,14 +97,16 @@ do
 		 	fi		
 		else
 			#C file does not exist
-			echo "missing $lab_name.c for $item"
+			echo "missing $lab_name.c"
         		score=0
 		fi
 		cd ../../..
 		#file result to file
-	       	echo "$item;$score" >> "result$lab_name.txt"
+	       	echo "$student_id;$score" >> "result$lab_name.txt"
 		cd Labs/$lab_num
 		
+		#print separator line
+		echo "----------------------------------------"
        	fi
 done
 
